@@ -3,17 +3,17 @@
 if [ $USE_VPN -eq 1 ]]; then
   if [ -z $(ip addr | grep tun0) ]; then
     echo "VPN not configured yet"
-    rm -f /pf/port
     sleep 10
     exit 0
   fi
 
   echo "Wait a few seconds before we can grab the port number"
+  sleep 20
   while [ ! -e /pf/port ]; do
     sleep 2
   done
   PIAPORT=$(cat /pf/port)
-  sed -i "s/\"peer-port\":[[:space:]]*[^,]*,/\"peer-port\": SOMEPORT,/g" /settings.json
+  sed -i "s/\"peer-port\":[[:space:]]*[^,]*,/\"peer-port\": ${PIAPORT},/g" /settings.json
 fi
 
 if [ $BLOCKLIST_ENABLED -eq 1 ]; then
