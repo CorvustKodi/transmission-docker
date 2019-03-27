@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [ $USE_VPN -eq 1 ]]; then
+if [ $USE_VPN -eq 1 ]; then
   if [ -z $(ip addr | grep tun0) ]; then
     echo "VPN not configured yet"
     sleep 10
