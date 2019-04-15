@@ -6,18 +6,19 @@ RUN apk add --update \
     transmission-daemon transmission-cli dcron \
     && rm -rf /var/cache/apk/*
 
-COPY settings.json /settings.json
 COPY torrent_done.sh /torrent_done.sh
 COPY start.sh /start.sh
 COPY pf_update.sh /pf_update.sh
 
 RUN mkdir /Torrent-Downloads && \
     mkdir /Torrent-Incomplete && \
+    mkdir -p /etc/transmission && \
     mkdir /pf && \
     mkdir /done-torrents && \
     mkdir /opt/cron /opt/cron/periodic /opt/cron/crontabs /opt/cron/cronstamps && \
     chmod +xr /torrent_done.sh && chmod +xr /pf_update.sh
 
+COPY settings.json /etc/transmission/settings.json
 COPY crontab /opt/cron/crontabs/root
 
 ENV USE_VPN 0

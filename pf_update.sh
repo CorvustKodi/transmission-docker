@@ -1,6 +1,6 @@
 #!/bin/sh
 
-SETTINGS_PATH="/var/lib/transmission/settings.json"
+SETTINGS_PATH="/etc/transmission/settings.json"
 
 if [ -e /pf/port ]; then
   NEW_PIAPORT=$(cat /pf/port)
