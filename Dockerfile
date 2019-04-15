@@ -3,18 +3,22 @@ MAINTAINER CorvustKodi
 
 # Update packages and install software
 RUN apk add --update \
-    transmission-daemon transmission-cli \
+    transmission-daemon transmission-cli dcron \
     && rm -rf /var/cache/apk/*
 
 COPY settings.json /settings.json
 COPY torrent_done.sh /torrent_done.sh
 COPY start.sh /start.sh
+COPY pf_update.sh /pf_update.sh
 
 RUN mkdir /Torrent-Downloads && \
     mkdir /Torrent-Incomplete && \
     mkdir /pf && \
     mkdir /done-torrents && \
-    chmod +xr /torrent_done.sh
+    mkdir /opt/cron /opt/cron/periodic /opt/cron/crontabs /opt/cron/cronstamps && \
+    chmod +xr /torrent_done.sh && chmod +xr /pf_update.sh
+
+COPY crontab /opt/cron/crontabs/root
 
 ENV USE_VPN 0
 ENV RPC_USERNAME user
