@@ -1,6 +1,6 @@
 #!/bin/sh
 
-SETTINGS=/etc/transmission/settings.json
+SETTINGS=/settings.json
 
 if [ $USE_VPN -eq 1 ]; then
   if [ -z $(ip addr | grep tun0) ]; then
@@ -27,6 +27,8 @@ fi
 sed -i "s/\"rpc-password\":[[:space:]]*\"[^\"]*/\"rpc-password\": \"${RPC_PASSWORD}/g" $SETTINGS
 sed -i "s/\"rpc-username\":[[:space:]]*\"[^\"]*/\"rpc-username\": \"${RPC_USERNAME}/g" $SETTINGS
 sed -i "s/\"rpc-port\":[[:space:]]*[^,]*,/\"rpc-port\": ${RPC_PORT},/g" $SETTINGS
+
+mv /settings.json /etc/transmission/settings.json
 
 # Start cron to watch for updates to port forwarding
 crond -s /opt/cron/periodic -c /opt/cron/crontabs -t /opt/cron/cronstamps -L /proc/1/fd/1 -b

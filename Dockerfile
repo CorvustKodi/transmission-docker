@@ -18,7 +18,7 @@ RUN mkdir /Torrent-Downloads && \
     mkdir /opt/cron /opt/cron/periodic /opt/cron/crontabs /opt/cron/cronstamps && \
     chmod +xr /torrent_done.sh && chmod +xr /pf_update.sh
 
-COPY settings.json /etc/transmission/settings.json
+COPY settings.json /settings.json
 COPY crontab /opt/cron/crontabs/root
 
 ENV USE_VPN 0
