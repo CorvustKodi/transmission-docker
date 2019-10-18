@@ -24,6 +24,9 @@ if [ ! -z $SPEED_LIMIT_DOWN ]; then
   sed -i "s/\"speed-limit-down\":[[:space:]]*[^,]*,/\"speed-limit-down\": ${SPEED_LIMIT_DOWN},/g" $SETTINGS
   sed -i "s/\"speed-limit-down-enabled\":[[:space:]]*[^,]*,/\"speed-limit-down-enabled\": true,/g" $SETTINGS
 fi
+if [ ! -z $DOWNLOAD_QUEUE_SIZE ]; then
+  sed -i "s/\"download-queue-size\":[[:space:]]*[^,]*,/\"download-queue-size\": ${DOWNLOAD_QUEUE_SIZE},/g" $SETTINGS
+fi
 sed -i "s/\"rpc-password\":[[:space:]]*\"[^\"]*/\"rpc-password\": \"${RPC_PASSWORD}/g" $SETTINGS
 sed -i "s/\"rpc-username\":[[:space:]]*\"[^\"]*/\"rpc-username\": \"${RPC_USERNAME}/g" $SETTINGS
 sed -i "s/\"rpc-port\":[[:space:]]*[^,]*,/\"rpc-port\": ${RPC_PORT},/g" $SETTINGS
